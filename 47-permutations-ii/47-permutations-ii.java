@@ -14,11 +14,9 @@ class Solution {
     {
         if(cs>=ts)
         {
-            // System.out.println(li);
             ans.add(new ArrayList<>(li));
             return;
         }
-            // System.out.println("sdnsak");
         
         for(int i:hs.keySet())
         {
