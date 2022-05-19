@@ -9,13 +9,13 @@ class Solution {
         {
             for(int j=0;j<n;j++)
             {
-                max=Math.max(max,dfs(matrix,1,new boolean[m][n],i,j,mem));
+                max=Math.max(max,dfs(matrix,1,i,j,mem));
             }
         }
         return max;
     }
     int [][]dir={{1,0},{0,1},{-1,0},{0,-1}};
-    public int dfs(int [][]matrix,int m,boolean [][]visited,int i,int j,int [][]mem)
+    public int dfs(int [][]matrix,int m,int i,int j,int [][]mem)
     {
         if(mem[i][j]>0)
             return mem[i][j];
@@ -28,7 +28,7 @@ class Solution {
             if(ni>=0 && nj>=0 && ni<matrix.length && nj<matrix[0].length)
             {
                 if(matrix[ni][nj]>matrix[i][j])
-                    max=Math.max(dfs(matrix,m+1,visited,ni,nj,mem),max);
+                    max=Math.max(dfs(matrix,m+1,ni,nj,mem),max);
             }
         }
         mem[i][j]=max+1;
