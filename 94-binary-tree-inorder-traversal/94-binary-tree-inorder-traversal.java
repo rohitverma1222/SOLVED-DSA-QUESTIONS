@@ -40,7 +40,7 @@ class Solution {
                 }
                 else
                 {
-                    iop.right=null;
+                    // iop.right=null;
                     ans.add(curr.val);
                     curr=curr.right;
                 }
