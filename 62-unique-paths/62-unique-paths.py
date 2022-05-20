@@ -4,4 +4,7 @@ class Solution:
             if n==0 or n==1:
                 return 1;
             return n*fact(n-1)
-        return fact(m+n-2)//fact(m-1)//fact(n-1)
+        val=fact(m+n-2)
+        div=fact(m-1)*fact(n-1)
+        
+        return val//div
