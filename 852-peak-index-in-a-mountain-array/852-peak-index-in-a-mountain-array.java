@@ -5,7 +5,7 @@ class Solution {
         
         while(i<j)
         {
-            int mid=i+(j-i)/2;
+            int mid=(i+j)/2;
             if(arr[mid]<arr[mid+1])
                 i=mid+1;
             else
