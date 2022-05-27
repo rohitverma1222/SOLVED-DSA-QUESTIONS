@@ -117,18 +117,20 @@ class Solution
     }
     public static int maxPathSum(Node root)
     {
-        //code here
-        // helper(root);
-        if(root==null)
-            return 0;
-        
-        return Math.max(maxPathSum(root.left),maxPathSum(root.right))+root.data;
+        if(root.left!=null && root.right!=null)
+        {
+            return Math.max(maxPathSum(root.left),maxPathSum(root.right))+root.data;
+        }
+        else if(root.left!=null)
+        {
+            return maxPathSum(root.left)+root.data;
+        }
+        else if(root.right!=null)
+        {
+            return maxPathSum(root.right)+root.data;
+        }
+        else
+            return root.data;
     }
-    // public pair helper(Node root)
-    // {
-    //     if(root==null)
-    //         return new pair();
-        
-    //     pair p=left()
-    // }
+    
 }
