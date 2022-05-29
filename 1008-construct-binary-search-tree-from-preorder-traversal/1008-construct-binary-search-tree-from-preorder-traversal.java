@@ -14,57 +14,29 @@
  * }
  */
 class Solution {
-    class pair{
-        int max;
-        int min;
-        TreeNode node;
-        int state;
-        pair(int max,int min,TreeNode node,int state)
-        {
-            this.max=max;
-            this.min=min;
-            this.node=node;
-            this.state=state;
-        }
-    }
+    int index=0;
     public TreeNode bstFromPreorder(int[] preorder) {
-        Stack<pair> st=new Stack<>();
-        TreeNode root1=new TreeNode(preorder[0]);
-        int i=1;
-        st.push(new pair(Integer.MAX_VALUE,Integer.MIN_VALUE,root1,0));
-        while(st.size()>0 && i<preorder.length)
+        return con(preorder,Integer.MAX_VALUE,Integer.MIN_VALUE);
+    }
+    public TreeNode con(int []pre,int max,int min)
+    {
+        if(index==pre.length)
         {
-            pair top=st.peek();
-            TreeNode root=null;
-              
-                root=new TreeNode(preorder[i]);
-                
-            
-            if(top.state==0  )
-            {
-                if(root.val>top.min && root.val<top.node.val)
-                {
-                    top.node.left=root;
-                    st.push(new pair(top.node.val,top.min,root,0 ));
-                    i++;
-                }
-                top.state++;
-            }
-            else if(top.state==1 )
-            {
-                if(root.val>top.node.val && root.val<top.max)
-                {
-                    top.node.right=root;
-                    st.push(new pair(top.max,top.node.val,root,0));
-                    i++;
-                }
-                top.state++;
-            }
-            else
-            {
-                st.pop();
-            }
+            return null;
         }
-    return root1;
+        else if(pre[index]>min && pre[index]<max)
+        {
+            TreeNode node=new TreeNode();
+            node.val=pre[index];
+            index++;
+            
+            node.left=con(pre,node.val,min);
+            node.right=con(pre,max,node.val);
+            
+            return node;
+        }
+        else
+            return null;
+        
     }
 }
