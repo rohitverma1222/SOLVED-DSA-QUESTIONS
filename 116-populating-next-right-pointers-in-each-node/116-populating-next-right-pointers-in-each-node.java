@@ -23,23 +23,36 @@ class Node {
 
 class Solution {
     public Node connect(Node root) {
-        Node black=root;
+        Queue<Node> mq=new LinkedList();
+        if(root==null)
+            return root;
+        mq.add(root);
         
-        while(black!=null && black.left!=null)
+        while(mq.size()>0)
         {
-            Node n=black;
+            int s=mq.size();
             
-            while(true)
-            {
-                n.left.next=n.right;
-                
-                if(n.next==null)
-                    break;
-                
-                n.right.next=n.next.left;
-                n=n.next;
-            }
-            black=black.left;
+                Node prev=null;
+                for(int i=0;i<s;i++)
+                {
+                    Node rem=mq.remove();
+                    
+                    if(prev!=null)
+                    {
+                        prev.next=rem;
+                    }
+                    prev=rem;
+                    
+                    if(rem.left!=null)
+                    {
+                        mq.add(rem.left);
+                    }
+                    if(rem.right!=null)
+                    {
+                        mq.add(rem.right);
+                    }
+                }   
+            
         }
         return root;
     }
