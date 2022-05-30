@@ -108,9 +108,7 @@ class Solution
     {
         if(root==null)
             return;
-        int diff=Math.abs(root.data-k);
-        if(min>diff)
-            min=diff;
+        min=Math.min(min,Math.abs(root.data-k));
         if(k<root.data)
             helper(root.left,k);
         else if(k>root.data)
