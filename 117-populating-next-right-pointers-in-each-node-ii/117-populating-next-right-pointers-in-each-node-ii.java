@@ -23,34 +23,37 @@ class Node {
 
 class Solution {
     public Node connect(Node root) {
-        helper(root);
-        return root;
-    }
-    public void helper(Node root)
-    {
-        if(root==null)
-            return ;
-        
-        Node nextNode=getNode(root.next);
-        
-        if(root.left!=null)
-            root.left.next=root.right!=null ? root.right:nextNode;
-            
-        
-        if(root.right!=null)
-            root.right.next=nextNode;
-        
-        helper(root.right);
-        helper(root.left);
-    }
-    public Node getNode(Node root){
+        Queue<Node> mq=new LinkedList();
         if(root==null)
             return root;
+        mq.add(root);
         
-        if(root.left!=null) return root.left;
-        if(root.right!=null) return root.right;
-        
-        return getNode(root.next);
-        
+        while(mq.size()>0)
+        {
+            int s=mq.size();
+            
+                Node prev=null;
+                for(int i=0;i<s;i++)
+                {
+                    Node rem=mq.remove();
+                    
+                    if(prev!=null)
+                    {
+                        prev.next=rem;
+                    }
+                    prev=rem;
+                    
+                    if(rem.left!=null)
+                    {
+                        mq.add(rem.left);
+                    }
+                    if(rem.right!=null)
+                    {
+                        mq.add(rem.right);
+                    }
+                }   
+            
+        }
+        return root;
     }
 }
