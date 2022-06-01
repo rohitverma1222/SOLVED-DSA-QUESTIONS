@@ -1,48 +1,31 @@
 
 class Solution {
     int c=0;
-    class pair{
-        boolean camera;
-        boolean moniter;
-        boolean nonmonitered;
-        pair(){
-            this.camera=false;
-            this.moniter=true;
-            this.nonmonitered=false;
-        }
-    }
+    final int moniter=1;
+    final int camera=2;
+    final int nonmonitered=3;
+    
     public int minCameraCover(TreeNode root) {
-        pair get=helper(root);
-        if(get.nonmonitered)
+        int val=helper(root);
+        if(val==3)
             return c+1;
         return c;
     }
-    public pair helper(TreeNode root)
+    public int helper(TreeNode root)
     {
         if(root==null)
-            return new pair();
+            return 1;
 
-        pair left=helper(root.left);
-        pair right=helper(root.right);
-        pair mypair=new pair();
-        if(left.moniter && right.moniter)
+        int left=helper(root.left);
+        int right=helper(root.right);
+        if(left==1 && right==1)
+            return 3;
+        else if(left==3 || right==3)
         {
-            mypair.nonmonitered=true;
-            mypair.camera=false;
-            mypair.moniter=false;
-        }
-        else if(left.nonmonitered || right.nonmonitered)
-        {
-            mypair.nonmonitered=false;
-            mypair.camera=true;
             c++;
-            mypair.moniter=false;
+            return 2;
         }
-        else{
-            mypair.nonmonitered=false;
-            mypair.camera=false;
-            mypair.moniter=true;
-        }
-        return mypair;
+        else 
+            return 1;
     }
 }
