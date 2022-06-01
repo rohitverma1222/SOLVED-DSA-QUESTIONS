@@ -29,8 +29,6 @@ class Solution {
         }
         else
         {
-            if(root.val!=key)
-                return null;
             if(root.left==null && root.right==null)
                 return null;
             else if(root.left==null)
