@@ -39,18 +39,18 @@ class Solution {
                 return root.left;
             else
             {
-                int m=max(root.left);
+                int m=max(root.right);
                 root.val=m;
-                root.left=deleteNode(root.left,m);
+                root.right=deleteNode(root.right,m);
                 return root;
             }
         }
     }
     public int max(TreeNode root)
     {
-        if(root.right==null)
+        if(root.left==null)
             return root.val;
         else
-            return max(root.right);
+            return max(root.left);
     }
 }
