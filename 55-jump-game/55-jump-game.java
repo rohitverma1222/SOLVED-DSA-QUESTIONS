@@ -5,17 +5,24 @@ class Solution {
         dp[n-1]=true;
         for(int i=n-1;i>=0;i--)
         {
-            int val=nums[i];
-            boolean ans=false;
-            for(int j=1;j<=val;j++)
+//             for(int j=1;j<=nums[i];j++)
+//             {
+//                 if(i+j<n)
+//                 {
+//                     dp[i] =dp[i]|| dp[i+j];
+                    
+//                     if(dp[i])
+//                         break;
+//                 }
+//             }
+            int j=1;
+            while(j<=nums[i] && i+j<n)
             {
-                if(i+j<n)
-                {
-                    dp[i] =dp[i]|| dp[i+j];
+                dp[i] =dp[i]|| dp[i+j];
                     
                     if(dp[i])
                         break;
-                }
+                j++;
             }
         }
         return dp[0];
