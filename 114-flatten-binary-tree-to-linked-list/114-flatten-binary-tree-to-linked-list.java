@@ -14,24 +14,61 @@
  * }
  */
 class Solution {
-    TreeNode prev=null;
-    public void flatten(TreeNode root) {
-         helper(root);
-        // return;
-    }
-    public TreeNode helper(TreeNode root)
-    {
-        if(root==null)
-            return null;
-        
-        TreeNode left=helper(root.right);
-        TreeNode right=helper(root.left);
-        if(prev!=null)
-        {
-            root.right=prev;
-            root.left=null;
+    
+    class pair{
+        TreeNode head=null;
+        TreeNode tail=null;
+        pair(){
+            
         }
-        prev=root;
-        return root;
+        pair(TreeNode head,TreeNode tail)
+        {
+            this.head=head;
+            this.tail=tail;
+        }
+    }
+    public void flatten(TreeNode root) {
+        if(root!=null)
+         helper(root);
+    }
+    public pair helper(TreeNode root)
+    {
+        if(root.left!=null && root.right!=null)
+        {
+            pair left=helper(root.left);
+            pair right=helper(root.right);
+            
+            pair my=new pair();
+            my.head=root;
+            my.head.left=null;
+            my.head.right=left.head;
+            left.tail.right=right.head;
+            my.tail=right.tail;
+            
+            return my;
+        }
+        else if(root.left!=null)
+        {
+            pair left=helper(root.left);
+            
+            pair my=new pair();
+            my.head=root;
+            my.head.left=null;
+            my.head.right=left.head;
+            my.tail=left.tail;
+            return my;
+        }
+        else if(root.right!=null)
+        {
+            pair right=helper(root.right);
+            pair my=new pair();
+            my.head=root;
+            my.head.left=null;
+            my.head.right=right.head;
+            my.tail=right.tail;
+            return my;
+        }
+        else
+            return new pair(root,root);
     }
 }
