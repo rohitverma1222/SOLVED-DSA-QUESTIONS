@@ -24,14 +24,15 @@ class Solution {
                 li.add(curr.val);
                 curr=curr.right;
             }
-            else{
-             TreeNode iop=curr.left;
-                while(iop.right!=null &&iop.right!=curr)
+            else
+            {
+                TreeNode iop=curr.left;
+                while(iop.right!=null && iop.right!=curr)
                 {
                     iop=iop.right;
                 }
-
-                if(iop.right==null)//not process
+                
+                if(iop.right==null)
                 {
                     iop.right=curr;
                     curr=curr.left;
@@ -41,7 +42,7 @@ class Solution {
                     iop.right=null;
                     li.add(curr.val);
                     curr=curr.right;
-                }   
+                }
             }
         }
         return li;
