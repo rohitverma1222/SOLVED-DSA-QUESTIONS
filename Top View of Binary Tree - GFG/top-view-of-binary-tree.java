@@ -127,55 +127,54 @@ class Solution
 {
     static class pair{
         Node node;
-        int v;
-        pair(Node node,int v)
+        int order;
+        pair(Node node,int order)
         {
             this.node=node;
-            this.v=v;
+            this.order=order;
         }
     }
     static ArrayList<Integer> topView(Node root)
     {
-        HashMap<Integer,Integer> hs=new HashMap<>();
+        // add your code
         Queue<pair> mq=new LinkedList<>();
         mq.add(new pair(root,0));
-        int l=Integer.MAX_VALUE;
-        int r=Integer.MIN_VALUE;
+        HashMap<Integer,Integer> hs=new HashMap<>();
+        int leftMaxValue=0;
+        int rightMaxValue=0;
         while(mq.size()>0)
         {
-            pair rem=mq.remove();
-            
-            l=Math.min(l,rem.v);
-            r=Math.max(r,rem.v);
-            
-            if(hs.containsKey(rem.v)==false)
+            int s=mq.size();
+            for(int i=0;i<s;i++)
             {
-                hs.put(rem.v,rem.node.data);
-            }
-            
-            if(rem.node.left!=null)
-            {
-                mq.add(new pair(rem.node.left,rem.v-1));
-            }
-            
-            if(rem.node.right!=null)
-            {
-                mq.add(new pair(rem.node.right,rem.v+1));
+                pair rem=mq.remove();
+                
+                leftMaxValue=Math.min(rem.order,leftMaxValue);
+                rightMaxValue=Math.max(rem.order,rightMaxValue);
+
+                if(!hs.containsKey(rem.order))
+                {
+                    hs.put(rem.order,rem.node.data);
+                }
+
+                if(rem.node.left!=null)
+                    mq.add(new pair(rem.node.left,rem.order-1));
+                if(rem.node.right!=null)
+                    mq.add(new pair(rem.node.right,rem.order+1));
             }
         }
-        ArrayList<Integer> ar=new ArrayList<>();
-        for(int i=l;i<=r;i++)
+        ArrayList<Integer> ans=new ArrayList<>();
+        for(int i=leftMaxValue;i<=rightMaxValue;i++)
         {
-            ar.add(hs.get(i));
+            if(hs.containsKey(i))
+            {
+                ans.add(hs.get(i));
+            }
+
         }
-        return ar;
+        return ans;
     }
-    
-    
 }
-
-
-
 
 
 
