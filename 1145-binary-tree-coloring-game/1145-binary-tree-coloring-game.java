@@ -16,26 +16,21 @@
 class Solution {
     int xleft=0;
     int yleft=0;
-    public int size(TreeNode node,int x){
-        if(node==null)
+    public int size(TreeNode root,int x)
+    {
+        if(root==null)
             return 0;
-        int ls=size(node.left,x);
-        int rs=size(node.right,x);
-        
-        if(node.val==x)
+        int left=size(root.left,x);
+        int right=size(root.right,x);
+        if(root.val==x)
         {
-            xleft=ls;
-            yleft=rs;
+            xleft=left;
+            yleft=right;
         }
-        return ls+rs+1;
-        
+        return left+right+1;
     }
     public boolean btreeGameWinningMove(TreeNode root, int n, int x) {
         size(root,x);
-        
-        int other=n-(xleft+yleft+1);
-        int max=Math.max(other,Math.max(xleft,yleft));
-        // if(other>)
-        return max>n/2;
+        return Math.max(n-(yleft+xleft+1),Math.max(xleft,yleft))>n/2;
     }
 }
