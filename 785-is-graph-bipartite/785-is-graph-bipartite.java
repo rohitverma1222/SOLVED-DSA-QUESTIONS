@@ -8,7 +8,7 @@ class Solution {
             {
                 Queue<Integer> mq=new LinkedList<>();
                 mq.add(i);
-                color[i]=col;
+                color[i]=1;
                 while(mq.size()>0)
                 {
                     int val=mq.remove();
