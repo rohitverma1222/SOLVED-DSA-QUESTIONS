@@ -12,30 +12,35 @@ class Solution {
             {
                 if(visited[i][j]==false && grid[i][j]==1)
                 {
-                    flag=true;
+                    // flag=true;
                     len=0;
-                    helper(grid,i,j,visited);
-                    if(flag)
+                    if(helper(grid,i,j,visited))
+                    {
                         c+=len;
+                    }
+                    
                 }
             }
         }
         return c;
     }
-    public void helper(int [][]grid,int i,int j,boolean [][]visited)
+    public boolean helper(int [][]grid,int i,int j,boolean [][]visited)
     {
         if(i<0 || j<0 ||i>=grid.length ||j>=grid[0].length)
         {
-            flag=false;
-            return;
+            return false;
         }
         else if(visited[i][j]==true || grid[i][j]==0)
-            return;
+            return true;
+        
         visited[i][j]=true;
         len++;
-        helper(grid,i+1,j,visited);
-        helper(grid,i-1,j,visited);
-        helper(grid,i,j+1,visited);
-        helper(grid,i,j-1,visited);
+        boolean c1=helper(grid,i+1,j,visited);
+        boolean c2=helper(grid,i-1,j,visited);
+        boolean c3=helper(grid,i,j+1,visited);
+        boolean c4=helper(grid,i,j-1,visited);
+        if(!c1 || !c2 ||!c3 || !c4)
+            return false;
+        return true;
     }
 }
