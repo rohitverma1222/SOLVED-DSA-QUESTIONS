@@ -2,6 +2,8 @@ class Solution {
     public int numBusesToDestination(int[][] routes, int S, int T) {
 int n = routes.length;
     HashMap<Integer, ArrayList<Integer>> hs = new HashMap<>();
+        int min=Integer.MAX_VALUE;
+        int max=Integer.MIN_VALUE;
     for (int i = 0; i < n; i++)
     {
       for (int j = 0; j < routes[i].length; j++)
@@ -9,16 +11,20 @@ int n = routes.length;
         int val = routes[i][j];
         ArrayList<Integer> ar = hs.getOrDefault(val, new ArrayList<>());
         ar.add(i);
+          min=Math.min(min,val);
+          max=Math.max(max,val);
+          
         hs.put(val, ar);
       }
     }
+        int range=max-min+1;
 
     Queue<Integer> mq = new LinkedList<>();
-    HashSet<Integer> busStopno = new HashSet<>();
-    HashSet<Integer> busvis = new HashSet<>();
+    boolean []busStopno = new boolean[range+1];
+    boolean[] busvis = new boolean[n];
     int level = 0;
     mq.add(S);
-    busStopno.add(S);
+    busStopno[S-min]=true;
     while (mq.size() > 0)
     {
       int size = mq.size();
@@ -32,18 +38,19 @@ int n = routes.length;
         ArrayList<Integer> ar = hs.get(rem);
         for (int val : ar)
         {
-          if (busvis.contains(val))
+          if (busvis[val]==true)
             continue;
+
           int []arr = routes[val];
           for (int busStops : arr)
           {
-            if (busStopno.contains(busStops))
+            if (busStopno[busStops-min])
               continue;
 
-            busStopno.add(busStops);
+            busStopno[busStops-min]=true;
             mq.add(busStops);
           }
-          busvis.add(val);
+          busvis[val]=true;
         }
       }
       level++;
