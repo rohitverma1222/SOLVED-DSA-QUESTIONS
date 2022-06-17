@@ -1,77 +1,34 @@
 class Solution {
-    class pair{
-        int x;
-        int y;
-        pair(int x,int y)
-        {
-            this.x=x;
-            this.y=y;
-        }
-    }
     public int[][] colorBorder(int[][] grid, int row, int col, int color) {
-        Queue<pair> mq=new LinkedList<>();
-        mq.add(new pair(row,col));
-        ArrayList<pair> ar=new ArrayList<>();
-        boolean []visited[]=new boolean[grid.length][grid[0].length];
-        // if(isBorder(grid,row,col))
-        //     ar.add(new pair(row,col));
-        
-        int []dir[]={{-1,0},{1,0},{0,-1},{0,1}};
-
-        while(mq.size()>0)
+        int oc=grid[row][col];
+        helper(grid,row,col,color,grid[row][col]);
+        for(int i=0;i<grid.length;i++)
         {
-            int size=mq.size();
-            while(size-->0)
+            for(int j=0;j<grid[0].length;j++)
             {
-                pair rem=mq.remove();
-                if(visited[rem.x][rem.y])
-                    continue;
-
-                visited[rem.x][rem.y]=true;
-                if(isBorder(grid,rem.x,rem.y))
-                    ar.add(rem);
-
-                for(int []d:dir)
-                {
-                    int ni=rem.x+d[0];
-                    int nj=rem.y+d[1];
-                    if(ni>=0 && nj>=0 && ni<grid.length && nj<grid[0].length && visited[ni][nj]==false && grid[row][col]==grid[ni][nj])
-                    {
-                        
-                        // System.out.println(grid[rem.x][rem.y]);
-                        mq.add(new pair(ni,nj));
-                    }
-                }
+                if(grid[i][j]==-oc)
+                    grid[i][j]=color;
             }
-        }
-
-        for(pair rem:ar)
-        {
-            grid[rem.x][rem.y]=color;
         }
         return grid;
     }
-    public boolean isBorder(int [][]grid,int i,int j)
+    public void helper(int [][]grid,int row,int col,int color,int org)
     {
-        if(i==0)
-            return true;
-        else if(j==0)
-            return true;
-        else if(i>=grid.length-1)
-            return true;
-        else if(j>=grid[0].length-1)
-            return true;
-        else{
-            if(grid[i-1][j]!=grid[i][j])
-                return true;
-            else if(grid[i+1][j]!=grid[i][j])
-                return true;
-            else if(grid[i][j-1]!=grid[i][j])
-                return true;
-            else if(grid[i][j+1]!=grid[i][j])
-                return true;
-            else
-                return false;
-        }
+        if(row<0 || col<0 ||row>=grid.length || col>=grid[0].length || grid[row][col]!=org)
+            return;
+
+
+        grid[row][col]=-org;
+        // visited[row][col]=true;
+        helper(grid,row+1,col,color,org);
+        helper(grid,row-1,col,color,org);
+        helper(grid,row,col+1,color,org);
+        helper(grid,row,col-1,color,org);
+
+        if(row>0 && col>0 && row<grid.length-1 && col<grid[0].length-1 && Math.abs(grid[row-1][col])==org &&  Math.abs(grid[row+1][col])==org && Math.abs(grid[row][col-1])==org && Math.abs(grid[row][col+1])==org )
+            grid[row][col]=org;
+
+        return;
     }
+    
 }
