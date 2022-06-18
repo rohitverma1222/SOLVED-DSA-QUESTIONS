@@ -1,6 +1,11 @@
 class Solution {
     public long gridGame(int[][] grid) {
-        long top=Arrays.stream(grid[0]).asLongStream().sum();
+        long top=0;
+        for(int i:grid[0])
+        {
+            top+=i;
+        }
+        
         long bottom=0;
         long ans=Long.MAX_VALUE;
         for(int i=0;i<grid[0].length;i++)
