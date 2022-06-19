@@ -28,22 +28,38 @@ class Solution {
     int [][]dir={{1,0},{-1,0},{0,-1},{0,1}};
     public int bfs(int [][]grid,int i,int j,boolean [][]visited)
     {
-        if(i<0 || j<0 || i>=grid.length || j>=grid[0].length || grid[i][j]!=1 || visited[i][j]==true)
-            return 0;
-        int ans=0;
-        visited[i][j]=true;
-        
-        ans+=bfs(grid,i+1,j,visited);
-        ans+=bfs(grid,i-1,j,visited);
-        ans+=bfs(grid,i,j+1,visited);
-        ans+=bfs(grid,i,j-1,visited);
-        
-        return ans+1;
+        int ans=1;
+        Queue<pair> mq=new LinkedList<>();
+        mq.add(new pair(i,j));
+        // visited[i][j]=true;
+        while(mq.size()>0)
+        {
+            int s=mq.size();
+            while(s-->0)
+            {
+                pair rem=mq.remove();
+                if(visited[rem.x][rem.y])
+                {
+                    ans--;
+                    continue;
+                }
+                visited[rem.x][rem.y]=true;
+                for(int d[]:dir)
+                {
+                    int ni=rem.x+d[0];
+                    int nj=rem.y+d[1]; 
+                    if(ni>=0 && nj>=0 && ni<grid.length && nj<grid[0].length && grid[ni][nj]==1 && visited[ni][nj]==false)
+                    {
+                        ans++;
+                        mq.add(new pair(ni,nj));
+                        // visited[ni][nj]=true;
+                        // System.out.println(ans+" "+ni+" "+nj);
+                    }
+                        
+                }
+            }
+        }
+        return ans;
     }
+    
 }
-
-
-
-
-
-
