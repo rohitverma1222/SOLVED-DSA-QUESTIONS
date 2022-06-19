@@ -31,19 +31,13 @@ class Solution {
         int ans=1;
         Queue<pair> mq=new LinkedList<>();
         mq.add(new pair(i,j));
-        // visited[i][j]=true;
+        visited[i][j]=true;
         while(mq.size()>0)
         {
             int s=mq.size();
             while(s-->0)
             {
                 pair rem=mq.remove();
-                if(visited[rem.x][rem.y])
-                {
-                    ans--;
-                    continue;
-                }
-                visited[rem.x][rem.y]=true;
                 for(int d[]:dir)
                 {
                     int ni=rem.x+d[0];
@@ -52,7 +46,7 @@ class Solution {
                     {
                         ans++;
                         mq.add(new pair(ni,nj));
-                        // visited[ni][nj]=true;
+                        visited[ni][nj]=true;
                         // System.out.println(ans+" "+ni+" "+nj);
                     }
                         
