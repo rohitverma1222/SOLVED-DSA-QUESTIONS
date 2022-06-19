@@ -51,7 +51,7 @@ class Solution {
                         mq.add(new pair(ni,nj));
                         grid[ni][nj]=2;
                         ans++;
-                        System.out.println(ans+" "+ni+" "+nj);
+                        // System.out.println(ans+" "+ni+" "+nj);
                     }
                 }
             }
