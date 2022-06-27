@@ -1,52 +1,53 @@
 class Solution {
-    class Pair implements Comparable<Pair> {
-        int i;
-        int j;
-        int tesf;
-        
-        Pair(int i, int j, int tesf){
-            this.i = i;
-            this.j = j;
-            this.tesf = tesf;
+    class pair implements Comparable<pair>{
+        int x;
+        int y;
+        int val;
+        pair(int x,int y,int val)
+        {
+            this.x=x;
+            this.y=y;
+            this.val=val;
         }
-        
-        public int compareTo(Pair o){
-            return this.tesf - o.tesf;
+        public int compareTo(pair other)
+        {
+            return this.val-other.val;
         }
     }
-    
     public int swimInWater(int[][] grid) {
-        boolean[][] visited = new boolean[grid.length][grid[0].length];
-        PriorityQueue<Pair> pq = new PriorityQueue<>();
+        int n=grid.length;
+        int m=grid[0].length;
+        PriorityQueue<pair> pq=new PriorityQueue<>();
+        pq.add(new pair(0,0,grid[0][0]));
+        boolean visited[][]=new boolean[n][m];
+        visited[0][0]=true;
         
-        pq.add(new Pair(0, 0, grid[0][0]));
-        while(pq.size() > 0){
-            Pair rem = pq.remove();
-            
-            if(visited[rem.i][rem.j] == true){
-                continue;
+        int dir[][]={{-1,0},{1,0},{0,1},{0,-1}};
+        int max=Integer.MIN_VALUE;
+        while(pq.size()>0)
+        {
+            int size=pq.size();
+            while(size-->0)
+            {
+                pair rem=pq.remove();
+
+                max=Math.max(max,rem.val);
+                if(rem.x==grid.length-1 &&rem.y==grid[0].length-1)
+                return max;
+                
+                for(int []d:dir)
+                {
+                    int ni=rem.x+d[0];
+                    int nj=rem.y+d[1];
+                    if(ni>=0 && nj>=0 && ni<n && nj<m && !visited[ni][nj])
+                    {
+                        // System.out.println(ni);
+                        pq.add(new pair(ni,nj,grid[ni][nj]));
+                        visited[ni][nj]=true;
+                    }
+                }
             }
-            visited[rem.i][rem.j] = true;
-            
-            if(rem.i == grid.length - 1 && rem.j == grid[0].length - 1){
-                return rem.tesf;
-            }
-            
-            addN(rem.i - 1, rem.j, rem.tesf, grid, visited, pq);
-            addN(rem.i + 1, rem.j, rem.tesf, grid, visited, pq);
-            addN(rem.i, rem.j - 1, rem.tesf, grid, visited, pq);
-            addN(rem.i, rem.j + 1, rem.tesf, grid, visited, pq);
         }
-        
-        return -1;
+        return max;
     }
-    
-    public void addN(int i, int j, int ot, int[][] grid, boolean[][] visited, PriorityQueue<Pair> pq){
-        if(i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || visited[i][j] == true){
-            return;
-        }
-        
-        pq.add(new Pair(i, j, Math.max(ot, grid[i][j])));
-    }
-    
 }
