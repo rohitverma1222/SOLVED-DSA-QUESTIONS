@@ -22,7 +22,9 @@ class Solution {
         if(i<0 || j<0 || i>=grid1.length|| j>=grid1[0].length || grid2[i][j]==0)
             return true;
         
-        boolean flag=grid1[i][j]==1;
+        // boolean flag=grid1[i][j]==1;
+        if(grid1[i][j]==0)
+            return false;
         
         grid2[i][j]=0;
         
@@ -30,7 +32,7 @@ class Solution {
         boolean c2=solve(grid1,grid2,i-1,j);
         boolean c3=solve(grid1,grid2,i,j-1);
         boolean c4=solve(grid1,grid2,i,j+1);
-        if(!flag ||!c1 || !c2 || !c3 || !c4)
+        if(!c1 || !c2 || !c3 || !c4)
         {
             return false;
         }
