@@ -19,7 +19,7 @@ class Solution {
 	        	
 	        	for(String ss:generate(rem,s2))
 	        	{
-                    System.out.println(ss);
+                    // System.out.println(ss);
 	        		if(hs.contains(ss)==false)
 	        		{
 	        			hs.add(ss);
