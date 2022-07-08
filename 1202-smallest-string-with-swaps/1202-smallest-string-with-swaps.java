@@ -18,26 +18,33 @@ class Solution {
         	union(u,v);
         }
 
-         PriorityQueue<Character> [] pq=new PriorityQueue[s.length()];
-         for(int i=0;i<s.length();i++)
-         {
-         	pq[i]=new PriorityQueue<>();
-         }
+         HashMap<Integer,PriorityQueue<Character>> hs=new HashMap<>();
 
          for(int i=0;i<s.length();i++)
          {
          	int lead=find(i);
-
          	char ch=s.charAt(i);
-         	pq[lead].add(ch);
+         	if(hs.containsKey(lead))
+         	{
+                PriorityQueue<Character> pq=hs.get(lead);
+                pq.add(ch);
+         		hs.put(lead,pq);
+         	}
+         	else{
+         		PriorityQueue<Character> pq=new PriorityQueue<>();
+         		pq.add(ch);
+         		hs.put(lead,pq);
+         	}
          }
          String str="";
          for(int i=0;i<s.length();i++)
          {
          	int lead=find(i);
 
-         	char ch=s.charAt(i);
-         	str+=pq[lead].remove();
+         	if(hs.containsKey(lead))
+         	{
+         		str+=hs.get(lead).remove();
+         	}
          }
          return str;
 
