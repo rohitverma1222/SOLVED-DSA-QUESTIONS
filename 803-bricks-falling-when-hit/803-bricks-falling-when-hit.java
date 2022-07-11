@@ -43,8 +43,12 @@ class Solution {
 
                     handleUnion(grid,i,j);
                     int newbrick=size[find(0)];
-                    if(newbrick>oldbrick)
-                    res[h]=newbrick-oldbrick-1;
+                    if(newbrick==oldbrick)
+                    {
+                        
+                    }
+                    else
+                        res[h]=newbrick-oldbrick-1;
                 }
             }
         
