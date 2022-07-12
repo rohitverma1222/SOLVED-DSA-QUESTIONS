@@ -77,11 +77,6 @@ class Solution
                 }
             }
         }
-        // int ans[]=new int[V-1];
-        // for(int i=1;i<ans.length;i++)
-        // {
-        //     ans[i-1]=paths[i];
-        // }
         return paths;
     }
 }
