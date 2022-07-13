@@ -2,10 +2,12 @@ class Solution {
     public int removeStones(int[][] stones) {
         int n=stones.length;
         parent=new int[n];
+        rank=new int[n];
 
         for(int i=0;i<n;i++)
         {
             parent[i]=i;
+            rank[i]=0;
         }
 
         for(int i=0;i<n;i++)
@@ -29,6 +31,7 @@ class Solution {
         return n-c;
     }
     int []parent;
+    int []rank;
     public int find(int x)
     {
         if(parent[x]==x)
@@ -38,13 +41,25 @@ class Solution {
         return st;
     }
 
-    public void union(int x,int y)
+    public void union(int u,int v)
     {
-        int u=find(x);
-        int v=find(y);
-        if(u!=v)
+        int leadU=find(u);
+        int leadV=find(v);
+
+        if(leadU!=leadV)
         {
-            parent[u]=v;
+            if(rank[leadU]<rank[leadV])
+            {
+                parent[leadU]=leadV;
+            }
+            else if(rank[leadV]<rank[leadU])
+            {
+                parent[leadV]=leadU;
+            }
+            else{
+                parent[leadU]=leadV;
+                rank[leadV]++;
+            }
         }
     }
 }
