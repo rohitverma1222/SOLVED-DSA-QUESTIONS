@@ -16,26 +16,30 @@
  * }
  */
 class Solution {
+    int index=0;
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         HashMap<Integer,Integer> hs=new HashMap<>();
-
-        for(int i=0;i<inorder.length;i++)
+        int t=0;
+        for(int i:inorder)
         {
-            hs.put(inorder[i],i);
+            hs.put(i,t++);
         }
-        return construct(preorder,hs,0,preorder.length-1,0,inorder.length-1);
+        index=0;
+
+        return construct(preorder,hs,0,preorder.length-1);
     }
-    public TreeNode construct(int []preorder,HashMap<Integer,Integer> hs,int pre_lo,int pre_hi,int in_lo,int in_hi)
-    { 
-        if(pre_lo>pre_hi || in_lo>in_hi)
+    public TreeNode construct(int []preorder,HashMap<Integer,Integer> hs,int post_lo,int post_hi)
+    {
+        if(post_lo>post_hi)
             return null;
 
-        TreeNode root=new TreeNode(preorder[pre_lo]);
-        int lim=hs.get(preorder[pre_lo]);
-        int log=hs.get(preorder[pre_lo])-in_lo;
+        int v=index++;
+        TreeNode root=new TreeNode(preorder[v]);
+        int pos=hs.get(preorder[v]);
 
-        root.left=construct(preorder,hs,pre_lo+1,pre_lo+log,in_lo,lim-1);
-        root.right=construct(preorder,hs,pre_lo+log+1,pre_hi,lim+1,in_hi);
+        root.left=construct(preorder,hs,post_lo,pos-1);
+        root.right=construct(preorder,hs,pos+1,post_hi);
+
         return root;
     }
     
