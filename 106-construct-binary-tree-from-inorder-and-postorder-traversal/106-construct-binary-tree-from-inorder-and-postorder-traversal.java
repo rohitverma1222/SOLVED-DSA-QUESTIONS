@@ -1,43 +1,28 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
 class Solution {
+    int index;
     public TreeNode buildTree(int[] inorder, int[] postorder) {
         HashMap<Integer,Integer> hs=new HashMap<>();
-        for(int i=0;i<inorder.length;i++)
+        int t=0;
+        for(int i:inorder)
         {
-            hs.put(inorder[i],i);
+            hs.put(i,t++);
         }
-        int n=inorder.length-1;
-        TreeNode root=construct(0,n,0,n,postorder,hs);
-        return root;
+        index=postorder.length-1;
+
+        return construct(postorder,hs,0,postorder.length-1);
     }
-    public TreeNode construct(int pre_lo,int pre_hi,int in_lo,int in_hi,int []preorder,HashMap<Integer,Integer> hs)
+    public TreeNode construct(int []postorder,HashMap<Integer,Integer> hs,int post_lo,int post_hi)
     {
-        if(pre_lo>pre_hi || in_lo>in_hi)
-        { 
+        if(post_lo>post_hi)
             return null;
-        }
-        
-        int idx=hs.getOrDefault(preorder[pre_hi],0);
-        int log=in_hi-idx;
-        TreeNode node=new TreeNode();
-        node.val=preorder[pre_hi];
-        node.left=construct( pre_lo,pre_hi-log-1 ,in_lo,idx-1,preorder,hs);
-        node.right=construct(pre_hi-log,pre_hi-1 ,idx+1,in_hi,preorder,hs);
-        
-        return node;
+
+        int v=index--;
+        TreeNode root=new TreeNode(postorder[v]);
+        int pos=hs.get(postorder[v]);
+
+        root.right=construct(postorder,hs,pos+1,post_hi);
+        root.left=construct(postorder,hs,post_lo,pos-1);
+
+        return root;
     }
 }
