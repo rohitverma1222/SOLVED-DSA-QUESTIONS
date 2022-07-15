@@ -1,4 +1,5 @@
 class Solution {
+    int max;
     class pair{
         int x;
         int y;
@@ -8,52 +9,53 @@ class Solution {
             this.y=y;
         }
     }
-        int max=0;
     public int maxAreaOfIsland(int[][] grid) {
-        boolean [][]visited=new boolean[grid.length][grid[0].length];
+
+        max=0;
         for(int i=0;i<grid.length;i++)
         {
             for(int j=0;j<grid[0].length;j++)
             {
-                if(grid[i][j]==1 && visited[i][j]==false)
+                if(grid[i][j]==1)
                 {
-                    int m=bfs(grid,i,j,visited);
-                    max=Math.max(m,max);
+                    int val=bfs(grid,i,j);
+                    // System.out.println(val);
+                    max=Math.max(val,max);
                 }
             }
         }
-       
         return max;
     }
-    int [][]dir={{1,0},{-1,0},{0,-1},{0,1}};
-    public int bfs(int [][]grid,int i,int j,boolean [][]visited)
+    int [][]dir={{1,0},{-1,0},{0,1},{0,-1}};
+    public int bfs(int [][]grid,int i,int j)
     {
-        int ans=1;
         Queue<pair> mq=new LinkedList<>();
         mq.add(new pair(i,j));
-        visited[i][j]=true;
+        boolean flag=false;
+        int c=0;
+        grid[i][j]=2;
         while(mq.size()>0)
         {
             int s=mq.size();
             while(s-->0)
             {
                 pair rem=mq.remove();
+                c++;
+
                 for(int d[]:dir)
                 {
                     int ni=rem.x+d[0];
-                    int nj=rem.y+d[1]; 
-                    if(ni>=0 && nj>=0 && ni<grid.length && nj<grid[0].length && grid[ni][nj]==1 && visited[ni][nj]==false)
+                    int nj=rem.y+d[1];
+
+                    if(ni>=0 && nj>=0 && ni<grid.length && nj<grid[0].length && grid[ni][nj]==1)
                     {
-                        ans++;
                         mq.add(new pair(ni,nj));
-                        visited[ni][nj]=true;
-                        // System.out.println(ans+" "+ni+" "+nj);
+                        grid[ni][nj]=2;
                     }
-                        
                 }
             }
+
         }
-        return ans;
+        return c;
     }
-    
 }
