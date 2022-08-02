@@ -10,14 +10,14 @@ class Solution {
     {
         if(idx>=nums.length)
         {
-            String str="";
+            StringBuilder str=new StringBuilder();
             for(int i:li)
             {
-                str+=i;
+                str.append(i);
             }
-            if(!hs.contains(str))
+            if(!hs.contains(str.toString()))
             {
-                hs.add(str);
+                hs.add(str.toString());
                 ans.add(new ArrayList<>(li));
             }
             return;
