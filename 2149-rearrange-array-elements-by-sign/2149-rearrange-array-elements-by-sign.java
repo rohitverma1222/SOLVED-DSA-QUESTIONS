@@ -14,8 +14,8 @@ class Solution {
             else
                 odd[j++]=nums[k];
         }
-        for(int k:even)
-            System.out.println(k);
+        // for(int k:even)
+        //     System.out.println(k);
 
         int []ans=new int[n];
         i=0;
