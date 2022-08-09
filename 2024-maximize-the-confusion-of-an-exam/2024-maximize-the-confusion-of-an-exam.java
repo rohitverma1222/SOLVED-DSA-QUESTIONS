@@ -1,45 +1,24 @@
 class Solution {
-    public int maxConsecutiveAnswers(String answerKey, int k) {
-        int ct=0;
-        int i=0;
-        int j=0;
-        int res=0;
-        for(char ch:answerKey.toCharArray())
-        {
-            if(ch=='T')
-            {
-                ct++;
+    public int maxConsecutiveAnswers(String s, int k) {
+                int[] freq = new int[26];
+        int mostFreqLetter = 0;
+        int left = 0;
+        int max = 0;
+        
+        for(int right = 0; right < s.length(); right++){
+            freq[s.charAt(right) - 'A']++;
+            mostFreqLetter = Math.max(mostFreqLetter, freq[s.charAt(right) - 'A']);
+            
+            int lettersToChange = (right - left + 1) - mostFreqLetter;
+            if(lettersToChange > k){
+                freq[s.charAt(left) - 'A']--;
+                left++;
             }
-            while(ct>k)
-            {
-            if(answerKey.charAt(j)=='T')
-                    ct--;
-                j++;
-            }
-            res=Math.max(res,i-j+1);
-            i++;
+            
+            max = Math.max(max, right - left + 1);
         }
+        
+        return max;
 
-        i=0;
-        j=0;
-
-        int an=0;
-        ct=0;
-        for(char ch:answerKey.toCharArray())
-        {
-            if(ch=='F')
-            {
-                ct++;
-            }
-            while(ct>k)
-            {
-                if(answerKey.charAt(j)=='F')
-                    ct--;
-                j++;
-            }
-            an=Math.max(an,i-j+1);
-            i++;
-        }
-        return Math.max(an,res);
     }
 }
