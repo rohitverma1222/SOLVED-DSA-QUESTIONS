@@ -8,11 +8,16 @@ class Solution {
             int mid=(l+h)/2;
             
             if(arr[mid]<arr[h])
+            {
                 h=mid;
+            }
             else if(arr[mid]>arr[h])
+            {
                 l=mid+1;
-            else
+            }
+            else{
                 h--;
+            }
         }
         return arr[l];
     }
