@@ -1,46 +1,46 @@
 class NumArray {
     class Node{
-        int l;
-        int h;
+        int st;
+        int ed;
         int val;
-        
+         
         Node left;
         Node right;
     }
-    Node root;
-    public Node construct(int []nums,int lo,int hi)
+    Node node;
+    public Node construct(int []nums,int st,int ed)
     {
-        if(lo==hi)
+        if(st==ed)
         {
             Node node=new Node();
-            node.l=node.h=lo;
+            node.st=node.ed=st;
             node.left=node.right=null;
-            node.val=nums[lo];
+
+            node.val=nums[st];
             return node;
         }
-        int mid=(lo+hi)/2;
         Node node=new Node();
-        node.l=lo;
-        node.h=hi;
-        node.left=construct(nums,lo,mid);
-        node.right=construct(nums,mid+1,hi);
+        int mid=(st+ed)/2;
+        node.st=st;
+        node.ed=ed;
+        node.left=construct(nums,st,mid);
+        node.right=construct(nums,mid+1,ed);
 
-        node.val+=node.left.val;
-        node.val+=node.right.val;
+        node.val=node.left.val+node.right.val;
 
         return node;
     }
     public NumArray(int[] nums) {
-        root=construct(nums,0,nums.length-1);
+        node=construct(nums,0,nums.length-1);
     }
-    void update(Node root,int index,int val)
+    public void update(Node root,int index,int val)
     {
-        if(root.l==root.h)
+        if(root.st==root.ed)
         {
             root.val=val;
             return;
         }
-        int mid=(root.l+root.h)/2;
+        int mid=(root.st+root.ed)/2;
         if(index<=mid)
         {
             update(root.left,index,val);
@@ -48,31 +48,29 @@ class NumArray {
         else{
             update(root.right,index,val);
         }
-
         root.val=root.left.val+root.right.val;
-        return;
     }
+    
     public void update(int index, int val) {
-        update(root,index,val);
+        update(node,index,val);
     }
-    int query(Node node,int qs,int qe)
+    public int query(Node root,int left,int right)
     {
-        if(qs>node.h || qe<node.l)
+        if(left>root.ed || right<root.st)
         {
             return 0;
         }
-        else if(node.l>=qs && node.h<=qe){
-            return node.val;
+        else if(root.st>=left && root.ed<=right){
+            return root.val;
         }
         else{
-            int left=query(node.left,qs,qe);
-            int right=query(node.right,qs,qe);
-
-            return left+right;
+            int l=query(root.left,left,right);
+            int r=query(root.right,left,right);
+            return l+r;
         }
     }
     public int sumRange(int left, int right) {
-        return query(root,left,right);
+        return query(node,left,right);
     }
 }
 
