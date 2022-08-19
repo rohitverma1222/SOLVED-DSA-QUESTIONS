@@ -3,16 +3,6 @@ class Solution {
         String str=s+"#"+new StringBuilder(s).reverse().toString();
 
         int []lps=getLps(str);
-        int k=0;
-        for(int i=lps.length-1;i>=0;i--)
-        {
-            if(lps[i]==0)
-            {
-                k=i;
-                break;
-            }
-        }
-        
         return new StringBuilder(s.substring(lps[lps.length-1])).reverse().toString()+s ;
     }
     public int[] getLps(String s)
