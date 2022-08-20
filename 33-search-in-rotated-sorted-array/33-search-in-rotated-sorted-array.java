@@ -1,47 +1,36 @@
 class Solution {
-    public int search(int[] nums, int target) {
+    public int search(int[] arr, int target) {
         int l=0;
-        int h=nums.length-1;
+        int h=arr.length-1;
 
-        while(l<h)
-        {
-            int mid=(l+h)/2;
-            
-            if(nums[mid]<nums[h])
-            {
-                h=mid;
-            }
-            else if(nums[mid]>nums[h])
-            {
-                l=mid+1;
-            }
-            else{
-                l--;
-            }
-        }
-        System.out.println(nums[l]);
-        // if(nums[l]==target)
-        // {
-        //     return l;
-        // }
-        int a=binary(nums,l,nums.length-1,target);
-            int b= binary(nums,0,l,target);
-        return a>b?a:b;
-    }
-    public int binary(int []nums,int l,int h,int target)
-    {
         while(l<=h)
         {
-            int mid=l+(h-l)/2;
-
-            if(nums[mid]==target)
+            int mid=(l+h)/2;
+            if(arr[mid]==target){
                 return mid;
-            else if(nums[mid]<target)
+            }
+            else if(arr[mid]<arr[h])
             {
-                l=mid+1;
+                if(arr[h]>=target && arr[mid]<=target)
+                {
+                    l=mid+1;
+                }
+                else{
+                    h=mid-1;
+                }
+            }
+            else if(arr[mid]>arr[h])
+            {
+                if(arr[l]<=target && arr[mid]>=target)
+                {
+                    h=mid-1;
+                }
+                else{
+                    l=mid+1;
+                }
             }
             else{
-                h=mid-1;
+                h--;
             }
         }
         return -1;
