@@ -1,18 +1,18 @@
 class Solution {
     public String largestPalindromic(String num) {
-        HashMap<Integer,Long> hs=new HashMap<>();
+        HashMap<Integer,Integer> hs=new HashMap<>();
         for(int i=0;i<num.length();i++)
         {
             int ch=Integer.parseInt(num.charAt(i)+"");
-            hs.put(ch,hs.getOrDefault(ch,0L)+1L);
+            hs.put(ch,hs.getOrDefault(ch,0)+1);
         }
         String str="";
         for(int i=9;i>=0;i--)
         {
-            if(hs.containsKey(i) && (hs.get(i)/2L)>0)
+            if(hs.containsKey(i) && (hs.get(i)/2)>0)
             {
-                long mod=hs.get(i)%2;
-                long size=hs.get(i)/2;
+                int mod=hs.get(i)%2;
+                int size=hs.get(i)/2;
                 while(size-->0)
                 {
                     str+=i;
