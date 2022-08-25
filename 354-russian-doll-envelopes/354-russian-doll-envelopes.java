@@ -9,12 +9,12 @@ class Solution {
                 return b[1]-a[1];
             }
         });
-        for(int i[]:arr)
-        {
-            for(int j:i)
-                System.out.print(j+" ");
-            System.out.println();
-        }
+        // for(int i[]:arr)
+        // {
+        //     for(int j:i)
+        //         System.out.print(j+" ");
+        //     System.out.println();
+        // }
         int tail[]=new int[arr.length];
         tail[0]=arr[0][1];
         int len=1;
