@@ -14,7 +14,7 @@ class Solution {
             }
         }
         int sum=0;
-        String ans="";
+        StringBuilder ans=new StringBuilder();
         for(int i=0;i<arr.length;i++)
         {
             sum+=arr[i];
@@ -22,8 +22,8 @@ class Solution {
             if(NewChar<0)
                 NewChar+=26;
 
-            ans+=(char)('a'+NewChar);
+            ans.append((char)('a'+NewChar));
         }
-        return ans;
+        return ans.toString();
     }
 }
