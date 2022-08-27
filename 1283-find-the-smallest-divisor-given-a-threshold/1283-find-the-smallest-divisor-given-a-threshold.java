@@ -1,25 +1,26 @@
 class Solution {
     public int smallestDivisor(int[] nums, int threshold) {
-        int lo=1;
-        int hi=1000000;
+        int h=(int)Math.pow(10,6);
+        int l=1;
 
-        while(lo<hi)
+        while(l<h)
         {
-            int mid=(lo+hi)/2;
+            int mid=(l+h)/2;
             int res=0;
-            for(int i:nums)
+            int sum=0;
+            for(int i=0;i<nums.length;i++)
             {
-                res+=(i+mid-1)/mid;
+                res+=(nums[i]+mid-1)/mid;
             }
 
-            if(res>threshold)
+            if(res<=threshold)
             {
-                lo=mid+1;
+                h=mid;
             }
             else{
-                hi=mid;
+                l=mid+1;
             }
         }
-        return lo;
+        return l;
     }
 }
