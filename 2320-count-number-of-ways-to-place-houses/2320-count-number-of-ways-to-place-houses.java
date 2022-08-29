@@ -1,18 +1,17 @@
 class Solution {
-    long m = 1000000007;
-    
+    long mod=1000000007;
     public int countHousePlacements(int n) {
-        if(n==1)
-            return 4;
-        if(n==2)
-            return 9;
-        long []dp=new long[n+1];
-        dp[0]=1;
-        dp[1]=2;
-        for(int i=2;i<n+1;i++)
+        int one=1;
+        int zero=1;
+        for(int i=0;i<n-1;i++)
         {
-            dp[i]=(dp[i-1]+dp[i-2]) %m;
+            int x=one;
+            int y=one+zero;
+
+            zero=(int)(x%mod);
+            one=(int)(y%mod);
         }
-        return (int)((dp[n]*dp[n])%m);
+        long val=(one+zero)%mod;
+        return (int)((val*val)%mod);
     }
 }
