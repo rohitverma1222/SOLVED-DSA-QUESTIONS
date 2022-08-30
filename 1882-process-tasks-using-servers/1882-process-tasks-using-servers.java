@@ -14,18 +14,21 @@ class Solution {
                 return a[1]-b[1];
         });
 
+
         for(int i=0;i<servers.length;i++)
         {
-            free.add(new int[]{servers[i],i,0});
+            free.add(new int[]{ servers[i],i,0});
         }
-        int []res=new int[tasks.length];
+        int res[]=new int[tasks.length];
         for(int i=0;i<tasks.length;i++)
         {
             int t=tasks[i];
-            while(!used.isEmpty() && used.peek()[2]<=i)
+
+            while(used.size()!=0 && used.peek()[2]<=i)
                 free.add(used.remove());
 
-            if(free.isEmpty())
+
+            if(free.size()==0)
             {
                 int []curr=used.remove();
                 res[i]=curr[1];
