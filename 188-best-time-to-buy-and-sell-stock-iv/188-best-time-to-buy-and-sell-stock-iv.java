@@ -6,14 +6,12 @@ class Solution {
         int [][]dp=new int[k+1][n];
         for(int i=1;i<dp.length;i++)
         {
+                int max=Integer.MIN_VALUE;
             for(int j=1;j<dp[0].length;j++)
             {
-                int max=0;
-                for(int jj=0;jj<j;jj++)
-                {
-                    max=Math.max(max,dp[i-1][jj]+prices[j]-prices[jj]);
-                }
-                dp[i][j]=Math.max(dp[i][j-1],max);
+                int val=dp[i-1][j-1]-prices[j-1];
+                max=Math.max(max,val);
+                dp[i][j]=Math.max(dp[i][j-1],max+prices[j]);
             }
         }
         return dp[k][n-1];
