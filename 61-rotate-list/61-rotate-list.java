@@ -33,7 +33,7 @@ class Solution {
             kth=curr;
             curr=curr.next;
         }
-        System.out.println(kth.val);
+        // System.out.println(kth.val);
         
         tail.next=head;
         ListNode newhead=kth.next;
