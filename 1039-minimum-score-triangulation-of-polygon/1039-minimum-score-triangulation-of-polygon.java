@@ -1,27 +1,25 @@
 class Solution {
     public int minScoreTriangulation(int[] arr) {
-      int [][]dp=new int[arr.length][arr.length];
-        for(int i[]:dp)
-        Arrays.fill(i,-1);
-        return MCM(arr,0,arr.length-1,dp);
-        // return dp[0][arr.length-1];
-    }
-    public static int MCM(int []arr,int si,int ei,int [][]dp)
-    {
-        if(ei-si==1)
-            return dp[si][ei]=0;
-
-        if(dp[si][ei]!=-1)
+    int [][]dp=new int[arr.length][arr.length];
+        for(int g=0;g<arr.length;g++)
         {
-            return dp[si][ei];
+            for(int si=0,ei=g;ei<arr.length;si++,ei++)
+            {
+                if(ei-si==1)
+                {
+                    dp[si][ei]=0;
+                    continue;
+                }
+                int min=(int)1e9;
+                for(int i=si+1;i<ei;i++)
+                {
+                    int left=dp[si][i];
+                    int right=dp[i][ei];
+                    min=Math.min(min,left+arr[si]*arr[i]*arr[ei]+right);
+                }
+                dp[si][ei]=min;
+            }
         }
-        int min=(int)1e9;
-        for(int i=si+1;i<ei;i++)
-        {
-            int left=MCM(arr,si,i,dp);
-            int right=MCM(arr,i,ei,dp);
-            min=Math.min(min,left+arr[si]*arr[i]*arr[ei]+right);
-        }
-        return dp[si][ei]=min;
+        return dp[0][arr.length-1];
     }
 }
