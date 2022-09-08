@@ -24,8 +24,7 @@ class Solution {
                 li.add(curr.val);
                 curr=curr.right;
             }
-            else
-            {
+            else{
                 TreeNode iop=curr.left;
                 while(iop.right!=null && iop.right!=curr)
                 {
@@ -37,8 +36,7 @@ class Solution {
                     iop.right=curr;
                     curr=curr.left;
                 }
-                else
-                {
+                else{
                     iop.right=null;
                     li.add(curr.val);
                     curr=curr.right;
