@@ -3,27 +3,19 @@ class Solution {
         Arrays.sort(properties,(a,b)->{
             if(a[0]==b[0])
                 return a[1]-b[1];
-            else
-                return b[0]-a[0];
+            return b[0]-a[0];
         });
-        
-        // for(int i[]:properties)
-        // {
-        //     for(int v:i)
-        //         System.out.print(v);
-        //     System.out.println();
-        // }
 
-        int min=Integer.MIN_VALUE;
-        int res=0;
+        int max=Integer.MIN_VALUE;
+        int p=0;
         for(int i=0;i<properties.length;i++)
         {
-            if(properties[i][1]<min)
+            if(properties[i][1]<max)
             {
-                res++;
+                p++;
             }
-            min=Math.max(min,properties[i][1]);
+                max=Math.max(max,properties[i][1]);
         }
-        return res;
+        return p;
     }
 }
