@@ -1,38 +1,59 @@
 class Solution {
-    List<List<String>> ans=new ArrayList<>();
+    boolean [][]isPal;
+    void Palindrome(String s)
+    {
+        int n=s.length();
+
+        isPal=new boolean[s.length()][s.length()];
+
+        for(int g=0;g<isPal[0].length;g++)
+        {
+            for(int si=0,ei=g;ei<n;ei++,si++)
+            {
+                if(g==0)
+                {
+                    isPal[si][ei]=true;
+                }
+                else if(g==1)
+                {
+                    isPal[si][ei]=s.charAt(ei)==s.charAt(si)?true:false;
+                }
+                else{
+                    isPal[si][ei]=s.charAt(ei)==s.charAt(si)?isPal[si+1][ei-1]:false;
+                }
+            }
+        }
+    }
     public List<List<String>> partition(String s) {
-        helper(0,s,new ArrayList<>());
-        return ans;
+        Palindrome(s);
+        return helper(s.length()-1,s);
     }
-    public void helper(int start,String s,List<String> li)
+    public List<List<String>> helper(int j,String s)
     {
-        if(s.length()<=start)
-        {
-            
-            ans.add(new ArrayList<>(li));
-            return;
+        if(j<0){
+            // base case
+            List<List<String>> ans=new ArrayList<>();
+            List<String> li=new ArrayList<>();
+            ans.add(li);
+            return ans;
         }
 
-        for(int i=start;i<s.length();i++)
-        {
-            if(palindrome(s,start,i))
-            {
-                li.add(s.substring(start,i+1));
-                helper(i+1,s,li);
-                li.remove(li.size()-1);
-            }
-        }
-    }
-    public boolean palindrome(String str,int left,int right)
-    {
 
-        while(left<right)
+        List<List<String>> mList=new ArrayList<>();
+
+        for(int i=j;i>=0;i--)
         {
-            if(str.charAt(left++)!=str.charAt(right--))
+            if(isPal[i][j])
             {
-                return false;
+                String rest=s.substring(i,j+1);
+                List<List<String>> get=helper(i-1,s);
+                for(List<String> g:get)
+                {
+                    g.add(rest);
+                    mList.add(g);
+                }
             }
         }
-        return true;
+        return mList;
     }
 }
