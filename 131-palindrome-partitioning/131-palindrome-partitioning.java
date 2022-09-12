@@ -1,5 +1,5 @@
 class Solution {
-    boolean [][]isPal;
+            boolean [][]isPal;
     void Palindrome(String s)
     {
         int n=s.length();
@@ -26,9 +26,10 @@ class Solution {
     }
     public List<List<String>> partition(String s) {
         Palindrome(s);
-        return helper(s.length()-1,s);
+        List<List<String>>[] dp=new ArrayList[s.length()];
+        return helper(s.length()-1,s,dp);
     }
-    public List<List<String>> helper(int j,String s)
+    public List<List<String>> helper(int j,String s,List<List<String>> []dp)
     {
         if(j<0){
             // base case
@@ -37,7 +38,8 @@ class Solution {
             ans.add(li);
             return ans;
         }
-
+        if(dp[j]!=null)
+            return (List<List<String>>)dp[j];
 
         List<List<String>> mList=new ArrayList<>();
 
@@ -46,14 +48,16 @@ class Solution {
             if(isPal[i][j])
             {
                 String rest=s.substring(i,j+1);
-                List<List<String>> get=helper(i-1,s);
+                List<List<String>> get=helper(i-1,s,dp);
                 for(List<String> g:get)
                 {
-                    g.add(rest);
-                    mList.add(g);
+                    List<String> ans=new ArrayList<>(g);
+                    ans.add(rest);
+                    mList.add(ans);
                 }
             }
         }
+        dp[j]=mList;
         return mList;
     }
 }
