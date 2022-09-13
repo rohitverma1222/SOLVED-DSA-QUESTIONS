@@ -26,12 +26,6 @@ class Solution {
                 }
             }
         }
-        // for(int i[]:dp)
-        // {
-        //     for(int j:i)
-        //         System.out.print(j);
-        //     System.out.println();
-        // }
         return dp[t.length()][s.length()];
     }
 }
