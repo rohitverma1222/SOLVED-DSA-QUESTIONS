@@ -21,11 +21,16 @@ class Solution {
                     {
                         dp[i][j]=dp[i-1][j-1]+dp[i][j-1];
                     }
-                    else
-                        dp[i][j]=dp[i][j-1];
+                    dp[i][j]=Math.max(dp[i][j-1],dp[i][j]);
                 }
             }
         }
+        // for(int i[]:dp)
+        // {
+        //     for(int j:i)
+        //         System.out.print(j);
+        //     System.out.println();
+        // }
         return dp[t.length()][s.length()];
     }
 }
