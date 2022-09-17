@@ -30,12 +30,12 @@ class Solution {
             }
         }
         
-        for(boolean i[]:dp)
-        {
-            for(boolean val:i)
-                System.out.print(val==true?" T ":" F ");
-            System.out.println();
-        }
+        // for(boolean i[]:dp)
+        // {
+        //     for(boolean val:i)
+        //         System.out.print(val==true?" T ":" F ");
+        //     System.out.println();
+        // }
         return dp[0][0];
     }
 }
