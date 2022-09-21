@@ -23,17 +23,17 @@ class WordDictionary {
     }
     
     public boolean search(String word) {
-        return helper(root,word,0,false);
+        return helper(root,word,0);
     }
-    public boolean helper(Node root,String word,int i,boolean end)
+    public boolean helper(Node root,String word,int i)
     {
         if(i>=word.length())
-            return end;
+            return root.eow;
         if(word.charAt(i)!='.')
         {
             if(root.children[word.charAt(i)-'a']==null)
                 return false;
-            if(helper(root.children[word.charAt(i)-'a'],word,i+1,root.children[word.charAt(i)-'a'].eow))
+            if(helper(root.children[word.charAt(i)-'a'],word,i+1))
                 return true;
         }
         else{
@@ -41,7 +41,7 @@ class WordDictionary {
             {
                 if(ch!=null)
                 {
-                    if(helper(ch,word,i+1,ch.eow))
+                    if(helper(ch,word,i+1))
                         return true;
                 }
             }
