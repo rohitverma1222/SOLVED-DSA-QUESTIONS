@@ -1,60 +1,44 @@
 class Trie {
     class Node{
-        boolean eow=false;
-        Node []children=new Node[26];
+        boolean endOfWord=false;
+        Node []children=new Node[26];    
     }
-
     Node root;
     public Trie() {
         root=new Node();
     }
     
     public void insert(String word) {
-        Node node=root;
+        Node temp=root;
         for(char ch:word.toCharArray())
         {
-            if(node.children[ch-'a']==null)
-            {
-                node.children[ch-'a']=new Node();
-            }
-            node=node.children[ch-'a'];
+            if(temp.children[ch-'a']==null)
+                temp.children[ch-'a']=new Node();
+            temp=temp.children[ch-'a'];
         }
-        node.eow=true;
+        temp.endOfWord=true;
     }
     
     public boolean search(String word) {
-        Node node=root;
+        Node temp=root;
         for(char ch:word.toCharArray())
         {
-            if(node.children[ch-'a']==null)
-            {
+            if(temp.children[ch-'a']==null)
                 return false;
-            }
-            node=node.children[ch-'a'];
+            temp=temp.children[ch-'a'];
         }
-        if(node.eow)
-            return true;
-        return false;
+        return temp.endOfWord;
     }
     
     public boolean startsWith(String prefix) {
-        Node node=root;
+        Node temp=root;
         for(char ch:prefix.toCharArray())
         {
-            if(node.children[ch-'a']==null)
-            {
+            if(temp.children[ch-'a']==null)
                 return false;
-            }
-            node=node.children[ch-'a'];
+
+            temp=temp.children[ch-'a'];
         }
         return true;
     }
 }
-
-/**
- * Your Trie object will be instantiated and called as such:
- * Trie obj = new Trie();
- * obj.insert(word);
- * boolean param_2 = obj.search(word);
- * boolean param_3 = obj.startsWith(prefix);
- */
