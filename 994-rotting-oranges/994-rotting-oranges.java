@@ -18,6 +18,7 @@ class Solution {
         ArrayDeque<pair> mq=new ArrayDeque<>();
         boolean visited[][]=new boolean[n][m];
         int c=0;
+        int t=0;
         for(int i=0;i<n;i++)
         {
             for(int j=0;j<m;j++)
@@ -25,6 +26,7 @@ class Solution {
                 if(grid[i][j]==2)
                 {
                     mq.add(new pair(i,j,0));
+                    t++;
                 }
                 else if(grid[i][j]==1){
                     c++;
@@ -34,26 +36,23 @@ class Solution {
         if(c==0)
             return 0;
         int [][]dir={{1,0},{-1,0},{0,1},{0,-1}};
-        int time=0;
+        int time=-1;
         while (mq.size()!=0) {
             int size=mq.size();
+            time++;
             while(size-->0)
             {
                 pair rem=mq.removeFirst();
-                if(visited[rem.i][rem.j]==true)
-                    continue;
-                time=rem.t;
-                if(grid[rem.i][rem.j]==1)
-                 c--;
-                visited[rem.i][rem.j]=true;
+                
                 for(int d[]:dir)
                 {
                     int ni=rem.i+d[0];
                     int nj=rem.j+d[1];
-                    if(ni>=0 && nj>=0 && ni<n && nj<m && grid[ni][nj]==1 && visited[ni][nj]==false)
+                    if(ni>=0 && nj>=0 && ni<n && nj<m && grid[ni][nj]==1 )
                     {
                         mq.add(new pair(ni,nj,rem.t+1));
-                        // grid[ni][nj]=-1;
+                        c--;
+                        grid[ni][nj]=2;
                     }
                 }
             }
