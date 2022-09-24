@@ -1,32 +1,34 @@
 class Solution {
     public int numIslands(char[][] grid) {
-        boolean [][]visited=new boolean[grid.length][grid[0].length];
+        int n=grid.length;
+        int m=grid[0].length;
         int c=0;
-        for(int i=0;i<grid.length;i++)
+        boolean visited[][]=new boolean[n][m];
+        for(int i=0;i<n;i++)
         {
-            for(int j=0;j<grid[0].length;j++)
+            for(int j=0;j<m;j++)
             {
-                if(grid[i][j]=='1' && visited[i][j]==false)
+                if(visited[i][j]==false && grid[i][j]=='1')
                 {
-                    helper(grid,i,j,visited);
                     c++;
+                    helper(grid,i,j,visited);
                 }
             }
         }
         return c;
     }
-    public void helper(char [][]grid ,int i,int j,boolean[][]visited)
+    int dir[][]={{1,0},{-1,0},{0,-1},{0,1}};
+    public void helper(char [][]board,int i,int j,boolean visited[][])
     {
-        if(i<0 || j<0 || i>=grid.length || j>=grid[0].length|| visited[i][j]==true || grid[i][j]=='0')
-        {
-            return;
-        }
-
         visited[i][j]=true;
-        helper(grid,i+1,j,visited);
-        helper(grid,i-1,j,visited);
-        helper(grid,i,j+1,visited);
-        helper(grid,i,j-1,visited);
 
+        for(int []d:dir)
+        {
+            int ni=i+d[0];
+            int nj=j+d[1];
+            if(ni>=0 && nj>=0 && ni<board.length && nj<board[0].length && visited[ni][nj]==false && board[ni][nj]=='1')
+                helper(board,ni,nj,visited);
+        }
+        // visited[i][j]=false;
     }
 }
