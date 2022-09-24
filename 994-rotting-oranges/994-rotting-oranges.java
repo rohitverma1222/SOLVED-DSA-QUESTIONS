@@ -15,7 +15,8 @@ class Solution {
     public int orangesRotting(int[][] grid) {
         n=grid.length;
         m=grid[0].length;
-        LinkedList<pair> mq=new LinkedList<>();
+        ArrayDeque<pair> mq=new ArrayDeque<>();
+        boolean visited[][]=new boolean[n][m];
         int c=0;
         for(int i=0;i<n;i++)
         {
@@ -32,17 +33,17 @@ class Solution {
         }
         if(c==0)
             return 0;
-        boolean visited[][]=new boolean[n][m];
         int [][]dir={{1,0},{-1,0},{0,1},{0,-1}};
         int time=0;
         while (mq.size()!=0) {
             int size=mq.size();
+            // time++;
             while(size-->0)
             {
                 pair rem=mq.removeFirst();
-                time=rem.t;
                 if(visited[rem.i][rem.j]==true)
                     continue;
+                time=rem.t;
 
                 visited[rem.i][rem.j]=true;
                 for(int d[]:dir)
