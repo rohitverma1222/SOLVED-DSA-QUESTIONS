@@ -1,66 +1,57 @@
 class Solution {
-    int parent[];
-    int rank[];
+    int []rank;
+    int []parent;
     public int[] findRedundantConnection(int[][] edges) {
         int n=edges.length;
         parent=new int[n+1];
-        rank=new int[n+1];
-        
-        for(int i=1;i<n;i++)
-        {
-            parent[i]=i;
-            rank[i]=0;
-        }
-        
+        rank=new int[1+n];
         for(int i=0;i<n;i++)
         {
-            int ans[]=union(edges[i][0],edges[i][1]);
-            if(ans.length>0)
-            return ans;
+            parent[i]=i;
+            rank[i]=1;
         }
-        
+        for(int []i:edges)
+        {
+            int u=i[0];
+            int v=i[1];
+            int ans[]=union(u,v);
+            if(ans.length>0)
+                return ans;
+        }
         return new int[0];
     }
     public int find(int x)
     {
         if(parent[x]==x)
-            return x;
+            return parent[x];
         int st=find(parent[x]);
-        // path Compression
         parent[x]=st;
         return st;
     }
-    
-    public int [] union(int u,int v)
+    public int[] union(int u,int v)
     {
-        int leadU=find(u);
-        int leadV=find(v);
-//         union by rank
-        if(leadU!=leadV)
+        int leadu=find(u);
+        int leadv=find(v);
+        if(leadu!=leadv)
         {
-            int rankU=rank[leadU];
-            int rankV=rank[leadV];
-            
-            if(rankU<rankV)
+            int ranku=find(leadu);
+            int rankv=find(leadv);
+
+            if(ranku<rankv)
             {
-                parent[leadU]=leadV;
-            }
-            else if(rankV<rankU)
+                parent[leadu]=leadv;
+            }else if(rankv<ranku)
             {
-                parent[leadV]=leadU;
+                parent[leadv]=ranku;
             }
-            else
-            {
-                parent[leadU]=leadV;
-                rank[leadV]++;
+            else{
+                parent[leadu]=leadv;
+                rank[leadv]++;
             }
-//             just returning empty array
             return new int[0];
         }
-//         If cycle is present then is parent is run
         else
-        {
             return new int[]{u,v};
-        }
+        
     }
 }
