@@ -1,39 +1,30 @@
 class Solution {
-    int ma=0;
     public int findMaxForm(String[] strs, int m, int n) {
-        
-         return helper(strs,0,m,n,new int[m+1][n+1][strs.length+1]);
+        return helper(strs,0,m,n,new int[strs.length+1][m+1][n+1]);
     }
-    public int helper(String []strs,int i,int m,int n,int dp[][][])
+    public int helper(String []str,int i,int m,int n,int dp[][][])
     {
-        if(dp[m][n][i]>0)
-            return dp[m][n][i];
-        if(i==strs.length || m+n==0)
-            return 0;
-        
-        int []cc=count(strs[i]);
-        int l=0;
-        if(m>=cc[1] && n>=cc[0])
-            l=helper(strs,i+1,m-cc[1],n-cc[0],dp)+1;
-
-        int r=helper(strs,i+1,m,n,dp);
-        dp[m][n][i]=Math.max(l,r);
-        return Math.max(l,r);
-    }
-    public int[] count(String s)
-    {
-        int o=0;
-        int z=0;
-        int []arr=new int[2];
-        for(int i=0;i<s.length();i++)
+        if(i>=str.length)
         {
-            if(s.charAt(i)=='0')
-                z++;
+            return 0;
+        }
+        else if(dp[i][m][n]!=0)
+            return dp[i][m][n];
+        int first = helper(str,i+1,m,n,dp);
+        
+        String word=str[i];
+        int one=0;
+        int zero=0;
+        for(char ch:word.toCharArray())
+        {
+            if(ch=='0')
+                zero++;
             else
-                o++;
-        } 
-        arr[0]=o;
-        arr[1]=z;
-        return arr;
+                one++;
+        }
+        int sec=0;
+        if(m-zero>=0 && n-one>=0)
+            sec=1+helper(str,i+1,m-zero,n-one,dp);
+        return dp[i][m][n] = Math.max(first,sec);
     }
 }
