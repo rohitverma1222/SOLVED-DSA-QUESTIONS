@@ -25,7 +25,7 @@ class LRUCache {
         else{
             Node get=hs.get(key);
             remove(get);
-            Addfirst(get);
+            Addfirst(key,get.val);
             hs.put(key,head.next);
             return head.next.val;
         }
@@ -33,36 +33,33 @@ class LRUCache {
     
     public void put(int key, int value) {
         
-        if(hs.containsKey(key) == false){
-            if(hs.size() == cap){
+        if(hs.containsKey(key)==false)
+        {
+            if(hs.size()==cap)
+            {
                 hs.remove(tail.prev.key);
                 remove(tail.prev);
             }
-            
-            Node node = new Node();
-            node.key = key;
-            node.val = value;
-            
-            Addfirst(node);
-            hs.put(key, node);
-        } else {
-            Node node = hs.get(key);
-            
-            remove(node);
-            Addfirst(node);
-            
-            node.val = value;
         }
+            else{  
+                Node get=hs.get(key);
+                remove(get);
+            }
+        Addfirst(key,value);
+        hs.put(key,head.next);
     }
-    void Addfirst(Node node){
-        Node m1 = head;
-        Node p1 = head.next;
-        
-        node.prev = m1;
-        node.next = p1;
-        
-        m1.next = node;
-        p1.prev = node;
+    public void Addfirst(int key,int val)
+    {
+        Node temp=head.next;
+        Node newNode=new Node();
+        newNode.key=key;
+        newNode.val=val;
+
+        newNode.next=temp;
+        temp.prev=newNode;
+
+        newNode.prev=head;
+        head.next=newNode;
     }
     void remove(Node node){
         Node m1 = node.prev;
@@ -71,7 +68,6 @@ class LRUCache {
         m1.next = p1;
         p1.prev = m1;
     }
-    
 }
 
 /**
