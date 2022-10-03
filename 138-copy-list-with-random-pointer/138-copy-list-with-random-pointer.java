@@ -31,23 +31,21 @@ class Solution {
             
             temp=temp.next==null?temp.next:temp.next.next;
         }
-        
-
         temp=head;
         while(temp!=null && temp.next!=null)
         {
-            if(temp.random != null){
-                temp.next.random = temp.random.next; 
-            }
+            if(temp.random!=null)
+                temp.next.random=temp.random.next;
             temp=temp.next.next;
         }
         
-        Node res = head.next;
-        temp = head;
-        while(temp.next != null){
-            Node next = temp.next;
-            temp.next = temp.next.next;
-            temp = next;
+        Node res=head.next;
+        temp=head;
+        while(temp.next!=null)
+        {
+            Node next=temp.next;
+            temp.next=temp.next.next;
+            temp=next;
         }
         return res;
     }
