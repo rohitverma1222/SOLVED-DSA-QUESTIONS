@@ -17,33 +17,31 @@ class Solution {
     public TreeNode addOneRow(TreeNode root, int val, int depth) {
         if(depth==1)
         {
-            TreeNode n=new TreeNode(val);
-            n.left=root;
-            return n;
+            TreeNode node=new TreeNode(val);
+            node.left=root;
+            return node;
         }
-        helper(root,val,depth,1);
+         helper(root,val,depth-1,0);
         return root;
     }
     public void helper(TreeNode root,int val,int depth,int curr)
     {
         if(root==null)
             return ;
-        
-        if(curr==depth-1)
+        if(depth-1==curr)
         {
-            TreeNode cat=root.left;
-            TreeNode n=new TreeNode(val);
-            n.left=cat;
-            root.left=n;
+            TreeNode l=new TreeNode(val);
+            TreeNode subtree=root.left;
+            l.left=subtree;
+            root.left=l;
             
-            cat=root.right;
-            TreeNode nn=new TreeNode(val);
-            nn.right=cat;
-            root.right=nn;
+            TreeNode r=new TreeNode(val);
+            TreeNode subtre=root.right;
+            r.right=subtre;
+            root.right=r;
+            
         }
-            
         helper(root.left,val,depth,curr+1);
         helper(root.right,val,depth,curr+1);
-        
     }
 }
