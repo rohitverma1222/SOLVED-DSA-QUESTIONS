@@ -21,12 +21,12 @@ class Solution {
             if(found<t.length())
             {
                 char ch=s.charAt(i);
-                if(pat[ch]>0)
-                {
+                // if(pat[ch]>0)
+                // {
                     str[ch]++;
                     if(str[ch]<=pat[ch])
                         found++;
-                }
+                // }
                 i++;
             }
             while(found==t.length())
