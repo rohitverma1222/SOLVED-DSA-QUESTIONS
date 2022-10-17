@@ -21,12 +21,9 @@ class Solution {
             if(found<t.length())
             {
                 char ch=s.charAt(i);
-                // if(pat[ch]>0)
-                // {
-                    str[ch]++;
-                    if(str[ch]<=pat[ch])
-                        found++;
-                // }
+                str[ch]++;
+                if(str[ch]<=pat[ch])
+                    found++;
                 i++;
             }
             while(found==t.length())
@@ -37,12 +34,10 @@ class Solution {
                     res=s.substring(j,i);
                 }
                 char chj=s.charAt(j);
-                if(pat[chj]>0)
-                {
-                    str[chj]--;
-                    if(str[chj]<pat[chj])
-                        found--;
-                }
+                
+                str[chj]--;
+                if(str[chj]<pat[chj])
+                    found--;
                 j++;
             }
         }
