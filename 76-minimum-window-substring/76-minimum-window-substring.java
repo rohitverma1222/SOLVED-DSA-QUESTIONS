@@ -1,50 +1,51 @@
 class Solution {
     public String minWindow(String s, String t) {
-        if(s.length()<t.length())
-            return "";
-        
-        int pat[]=new int[256];
+       if(s.length()<t.length())
+        return "";
+
         int str[]=new int[256];
-        
-        for(int i=0;i<t.length();i++)
+        int pat[]=new int[256];
+
+        for(char ch:t.toCharArray())
         {
-            char ch=t.charAt(i);
             pat[ch]++;
         }
-        int start=0;
-        int start_ind=-1;
-        int min=Integer.MAX_VALUE;
-        int c=0;
-        for(int i=0;i<s.length();i++)
+
+        String res="";
+        int i=0;
+        int j=0;
+        int len=s.length()+1;
+        int found=0;
+        while(i<s.length())
         {
-            char ch=s.charAt(i);
-            str[ch]++;
-            if(str[ch]<=pat[ch])
-                c++;
-            
-            if(c==t.length())
+            if(found<t.length())
             {
-                while(str[s.charAt(start)]>pat[s.charAt(start)] || pat[s.charAt(start)]==0)
+                char ch=s.charAt(i);
+                if(pat[ch]>0)
                 {
-                    if(str[s.charAt(start)]>pat[s.charAt(start)])
-                        str[s.charAt(start)]--;
-                    
-                    start++;
+                    str[ch]++;
+                    if(str[ch]<=pat[ch])
+                        found++;
                 }
-                
-                int len=i-start+1;
-                if(len<min)
+                i++;
+            }
+            while(found==t.length())
+            {
+                if(len>(i-j))
                 {
-                    min=len;
-                    start_ind=start;
+                    len=i-j;
+                    res=s.substring(j,i);
                 }
-                
+                char chj=s.charAt(j);
+                if(pat[chj]>0)
+                {
+                    str[chj]--;
+                    if(str[chj]<pat[chj])
+                        found--;
+                }
+                j++;
             }
         }
-        
-        if(start_ind==-1)
-            return "";
-        else
-            return s.substring(start_ind,start_ind+min);
+        return res;
    }
 }
