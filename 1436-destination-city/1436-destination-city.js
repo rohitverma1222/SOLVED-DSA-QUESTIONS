@@ -1,40 +1,17 @@
-class Solution {
-    public String destCity(List<List<String>> paths) {
-        HashMap<String,Integer> hs=new HashMap<>();
-        for(int i=0;i<paths.size();i++)
+/**
+ * @param {string[][]} paths
+ * @return {string}
+ */
+var destCity = function(paths) {
+    let map= new Map();
+    for(const path of paths)
         {
-            String str=paths.get(i).get(0);
-            String str1=paths.get(i).get(1);
-            
-            if(hs.containsKey(str))
-            {
-                int g=hs.get(str)+1;
-                hs.put(str,g);
-            }
-            else
-                hs.put(str,1);
-            
-            
-            if(hs.containsKey(str1))
-            {
-                int g=hs.get(str1)+1;
-                hs.put(str1,g);
-            }
-            else
-                hs.put(str1,1);
-            
+            map.set(path[0],map.has(path[0])?0:1);
+            map.set(path[1],map.has(path[1])?0:-1);
         }
-        String ans="";
-        for(int i=0;i<paths.size();i++)
+    
+    for(const item of map)
         {
-            String str=paths.get(i).get(0);
-            String str1=paths.get(i).get(1);
-            if(hs.get(str1)==1)
-            {
-                return str1;
-            }
-
+            if (item[1]==-1 ) return item[0];
         }
-        return "";
-    }
-}
+};
