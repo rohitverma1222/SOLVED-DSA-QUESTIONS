@@ -1,65 +1,40 @@
 class LRUCache {
     class Node{
-        int key;
         int val;
-        Node prev;
-        Node next;
+        int key;
+        Node next=null;
+        Node prev=null;
+
+        Node(int val,int key)
+        {
+            this.val=val;
+            this.key=key;
+        }
     }
+    int size;
     Node head;
     Node tail;
-    int cap=0;
     HashMap<Integer,Node> hs=new HashMap<>();
     public LRUCache(int capacity) {
-        this.cap=capacity;
-        hs=new HashMap<>();
-        head=new Node();
-        tail=new Node();
+        this.size=capacity;
+        head=new Node(-1,-1);
+        tail=new Node(-1,-1);
         head.next=tail;
         tail.prev=head;
-        
+        hs=new HashMap<>();
     }
     
     public int get(int key) {
-        if(hs.containsKey(key)==false)
-            return -1;
-        else{
-            Node get=hs.get(key);
-            remove(get);
-            Addfirst(key,get.val);
-            hs.put(key,head.next);
-            return head.next.val;
-        }
-    }
-    
-    public void put(int key, int value) {
-        
-        if(hs.containsKey(key)==false)
+        if(hs.containsKey(key))
         {
-            if(hs.size()==cap)
-            {
-                hs.remove(tail.prev.key);
-                remove(tail.prev);
-            }
+            Node curr=hs.get(key);
+            remove(curr);
+
+            Addfirst(curr.val,curr.key);
+            hs.put(key,head.next);
+            return curr.val;
         }
-            else{  
-                Node get=hs.get(key);
-                remove(get);
-            }
-        Addfirst(key,value);
-        hs.put(key,head.next);
-    }
-    public void Addfirst(int key,int val)
-    {
-        Node temp=head.next;
-        Node newNode=new Node();
-        newNode.key=key;
-        newNode.val=val;
-
-        newNode.next=temp;
-        temp.prev=newNode;
-
-        newNode.prev=head;
-        head.next=newNode;
+        return -1;
     }
     void remove(Node node){
         Node m1 = node.prev;
@@ -68,11 +43,32 @@ class LRUCache {
         m1.next = p1;
         p1.prev = m1;
     }
-}
+    void Addfirst(int val,int key)
+    {
+        Node newNode=new Node(val,key);
 
-/**
- * Your LRUCache object will be instantiated and called as such:
- * LRUCache obj = new LRUCache(capacity);
- * int param_1 = obj.get(key);
- * obj.put(key,value);
- */
+        Node nextNode=head.next;
+
+        head.next=newNode;
+        newNode.prev=head;
+
+        newNode.next=nextNode;
+        nextNode.prev=newNode;
+    }
+    
+    public void put(int key, int value) {
+        if(hs.containsKey(key)==false)
+        {
+            if(hs.size()==size)
+            {
+                hs.remove(tail.prev.key);
+                remove(tail.prev);
+            }
+        }
+        else{
+            remove(hs.get(key));
+        }
+        Addfirst(value,key);
+        hs.put(key,head.next);
+    }
+}
