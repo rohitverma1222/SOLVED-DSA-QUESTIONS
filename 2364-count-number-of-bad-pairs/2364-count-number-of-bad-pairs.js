@@ -2,10 +2,10 @@
  * @param {number[]} nums
  * @return {number}
  */
-var countBadPairs = function(nums) {
     var totalPair=(pair)=>{
         return pair*(pair-1)/2;
     }
+var countBadPairs = function(nums) {
     
     const map = new Map();
     for(let i=0;i<nums.length;i++)
