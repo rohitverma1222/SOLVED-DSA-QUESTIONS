@@ -10,8 +10,9 @@ class Solution {
         int j=0;
         while(i<nums.length)
         {
+            
             hs.put(nums[i],hs.getOrDefault(nums[i],0)+1);
-            while(hs.size()==k+1)
+            while(hs.size()>k)
             {
                hs.put(nums[j],hs.get(nums[j])-1);
                 if(hs.get(nums[j])==0)
