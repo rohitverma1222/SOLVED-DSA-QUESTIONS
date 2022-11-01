@@ -12,50 +12,25 @@ class RandomizedCollection {
         if(hs.containsKey(val)==false)
         {
             HashSet<Integer> hss=new HashSet<>();
-            hss.add(ar.size());
             hs.put(val,hss);
-            ar.add(val);
-            return true;
         }
-        else{
-            hs.get(val).add(ar.size());
-            ar.add(val);
-            return false;
-        }
+        hs.get(val).add(ar.size());
+        ar.add(val);
+        return hs.get(val).size()==1;
     }
     
     public boolean remove(int val) {
-        if(hs.containsKey(val)==false)
+        if(hs.containsKey(val)==false || hs.get(val).size()==0)
             return false;
-        int remIdx=hs.get(val).stream().findFirst().get();
-        if(remIdx==ar.size()-1)
-        {
-            hs.get(val).remove(remIdx);
-            ar.remove(ar.size()-1);
-        }
-        else{
-            int lastvalue=ar.get(ar.size()-1);
-            if(lastvalue==val)
-            {
-                hs.get(lastvalue).remove(ar.size()-1);
-                ar.remove(ar.size()-1);
-            }
-            else{
-                ar.set(remIdx,lastvalue);
-                
-                hs.get(lastvalue).remove(ar.size()-1);
-                hs.get(lastvalue).add(remIdx);
-
-                ar.remove(ar.size()-1);
-                hs.get(val).remove(remIdx);
-            }
-            
-            if(hs.get(lastvalue).size()==0)
-                    hs.remove(lastvalue);
-        }
+        int remIdx=hs.get(val).iterator().next();
         
-        if(hs.get(val).size()==0)
-                hs.remove(val);
+        hs.get(val).remove(remIdx);
+        int last=ar.get(ar.size()-1);
+        ar.set(remIdx,last);
+        hs.get(last).add(remIdx);
+        hs.get(last).remove(ar.size()-1);
+        
+        ar.remove(ar.size()-1);
         return true;
     }
     
