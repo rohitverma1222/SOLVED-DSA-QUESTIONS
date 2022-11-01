@@ -27,20 +27,10 @@ class RandomizedCollection {
     public boolean remove(int val) {
         if(hs.containsKey(val)==false)
             return false;
-        // System.out.println(hs.get(val).size());
-        int remIdx=-1;
-        for(int idx:hs.get(val))
-        {
-            remIdx=idx;
-            break;
-        }
+        int remIdx=hs.get(val).stream().findFirst().get();
         if(remIdx==ar.size()-1)
         {
             hs.get(val).remove(remIdx);
-
-            if(hs.get(val).size()==0)
-                hs.remove(val);
-
             ar.remove(ar.size()-1);
         }
         else{
@@ -48,10 +38,6 @@ class RandomizedCollection {
             if(lastvalue==val)
             {
                 hs.get(lastvalue).remove(ar.size()-1);
-
-                if(hs.get(lastvalue).size()==0)
-                    hs.remove(lastvalue);
-
                 ar.remove(ar.size()-1);
             }
             else{
@@ -62,10 +48,14 @@ class RandomizedCollection {
 
                 ar.remove(ar.size()-1);
                 hs.get(val).remove(remIdx);
-                if(hs.get(val).size()==0)
-                    hs.remove(val);
             }
+            
+            if(hs.get(lastvalue).size()==0)
+                    hs.remove(lastvalue);
         }
+        
+        if(hs.get(val).size()==0)
+                hs.remove(val);
         return true;
     }
     
