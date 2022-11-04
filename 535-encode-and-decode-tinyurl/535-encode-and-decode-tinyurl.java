@@ -5,14 +5,14 @@ public class Codec {
     public String encode(String longUrl) {
         int val=longUrl.hashCode();
         hs.put(val,longUrl);
-        return "http://tinyurl.com/"+val;
+        return val+"";
     }
 
     // Decodes a shortened URL to its original URL.
     public String decode(String shortUrl) {
-        String spl[]=shortUrl.split("/");
-        int ans=Integer.parseInt(spl[spl.length-1]);
-        return hs.get(ans);
+        // String spl[]=shortUrl.split("/");
+        // int ans=Integer.parseInt(spl[spl.length-1]);
+        return hs.get(Integer.parseInt(shortUrl));
     }
 }
 
