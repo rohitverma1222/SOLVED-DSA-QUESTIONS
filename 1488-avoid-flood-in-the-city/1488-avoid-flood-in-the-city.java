@@ -22,13 +22,10 @@ class Solution {
                         return new int[0];
                     tr.remove(idx);
                     ans[idx]=rains[i];
-                    hs.put(rains[i],i);
-                    ans[i]=-1;
                 }
-                else{
-                    ans[i]=-1;
-                    hs.put(rains[i],i);
-                }
+                hs.put(rains[i],i);
+                ans[i]=-1;
+                
             }
         }
         for(int i=0;i<ans.length;i++)
