@@ -1,19 +1,19 @@
 class Solution {
     class Node{
-        boolean eow=false;
-        Node []children=new Node[26];
+         boolean eow=false;
+         Node []children=new Node[26];
     }
     Node root=new Node();
     public List<String> findWords(char[][] board, String[] words) {
         for(String str:words)
-        {
             insert(str);
-        }
-
-        boolean visited[][]=new boolean[board.length][board[0].length];
-        for(int i=0;i<visited.length;i++)
+        
+        int n=board.length;
+        int m=board[0].length;
+        boolean [][]visited=new boolean[n][m];
+        for(int i=0;i<n;i++)
         {
-            for(int j=0;j<visited[0].length;j++)
+            for(int j=0;j<m;j++)
             {
                 helper(board,i,j,new StringBuilder(),root,visited);
             }
@@ -24,6 +24,7 @@ class Solution {
     int [][]dir={{1,0},{-1,0},{0,1},{0,-1}};
     public void helper(char [][]board,int i,int j,StringBuilder str,Node root,boolean [][]visited)
     {
+        // System.out.println("work");
         char ch=board[i][j];
         str.append(ch);
         if(root.children[ch-'a']==null)
@@ -36,13 +37,16 @@ class Solution {
         {
             res.add(str.toString());
         }
+
         visited[i][j]=true;
         for(int []d:dir)
         {
             int ni=i+d[0];
             int nj=j+d[1];
             if(ni>=0 && nj>=0 && ni<board.length && nj<board[0].length && visited[ni][nj]==false)
+            {
                 helper(board,ni,nj,str,child,visited);
+            }
         }
         visited[i][j]=false;
         str.deleteCharAt(str.length()-1);
