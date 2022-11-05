@@ -3,7 +3,7 @@ class Solution {
         HashSet<Character> hs=new HashSet<>();
         int j=0;
         int max=0;
-        for(int i=0;i<s.length();i++)
+        for(int i=0;i<s.length();++i)
         {
             char ch=s.charAt(i);
             while(hs.contains(ch))
