@@ -12,9 +12,9 @@ class MedianFinder {
     }
     
     public double findMedian() {
-        if(max.size()>min.size())
-            return max.peek();
+        if(max.size()==min.size())
         return (max.peek()+min.peek())/2.0;
+            return max.peek();
     }
 }
 
