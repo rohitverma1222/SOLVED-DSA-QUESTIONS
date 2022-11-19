@@ -1,25 +1,21 @@
 class Solution {
-    public int uniquePaths(int m, int n) {
-        int [][]arr=new int[m][n];
-        arr[m-1][n-1]=1;
-        
-        int [][]dir={{1,0},{0,1}};
-        for(int i=m-1;i>=0;i--)
+    public int uniquePaths(int n, int m) {
+        int [][]dp=new int[n][m];
+        int dir[][]={{1,0},{0,1}};
+        dp[n-1][m-1]=1;
+        for(int i=n-1;i>=0;i--)
         {
-            for(int j=n-1;j>=0;j--)
+            for(int j=m-1;j>=0;j--)
             {
-                for(int []d:dir)
+                for(int d[]:dir)
                 {
-                    int ni=d[0]+i;
-                    int nj=d[1]+j;
-                    
-                    if(ni>=0 && nj>=0 && ni<m && nj<n)
-                    {
-                        arr[i][j]+=arr[ni][nj];
-                    }
+                    int nr=d[0]+i;
+                    int nc=d[1]+j;
+                    if(nr>=0 && nc>=0 && nr<n && nc<m)
+                        dp[i][j]+=dp[nr][nc];
                 }
             }
         }
-        return arr[0][0];
+        return dp[0][0];
     }
 }
